@@ -42,10 +42,11 @@ script:
   - sudo su $(id -un) -c 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib) && TEST_AUTHOR=1 TEST_MYSQL="mysql://root@localhost:3306/test" perl t/100-backend_mysql_utf8.t >/tmp/test.log 2>&1'
   - ls -la /tmp/test.log
   - gzip -9 /tmp/test.log
-  - pastebinit -t 'travistest' < /tmp/test.log
-  - echo "travistest" | mail -s test sven@nierlein.de -A /tmp/test.log.gz
+  - ls -la /tmp/test.log.gz
+  #- pastebinit -t 'travistest' < /tmp/test.log.gz
+  #- echo "travistest" | mail -s test sven@nierlein.de -A /tmp/test.log.gz
   #- sudo su $(id -un) -c 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib) && TEST_AUTHOR=1 TEST_MYSQL="mysql://root@localhost:3306/test" make test'
-  - cat /tmp/test.log
+  - cat /tmp/test.log.gz | base64
 notifications:
   email:
     - sven@nierlein.de
